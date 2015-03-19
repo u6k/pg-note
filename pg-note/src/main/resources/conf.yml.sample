@@ -1,0 +1,10 @@
+devToken: xxx
+
+
+
+# logging
+logging:
+  level: INFO
+  appenders:
+    - type: console
+      timeZone: JST
