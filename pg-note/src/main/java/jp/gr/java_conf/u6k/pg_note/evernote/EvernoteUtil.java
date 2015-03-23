@@ -11,6 +11,7 @@ import jp.gr.java_conf.u6k.pg_note.vo.NoteVO;
 import jp.gr.java_conf.u6k.pg_note.vo.NotebookVO;
 import jp.gr.java_conf.u6k.pg_note.vo.TagVO;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -69,7 +70,7 @@ public class EvernoteUtil {
 
             String noteBody = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             noteBody += "<!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\">";
-            noteBody += "<en-note>" + title + "\n" + url + "</en-note>";
+            noteBody += "<en-note>" + StringEscapeUtils.escapeXml10(title) + "\n" + StringEscapeUtils.escapeXml10(url) + "</en-note>";
 
             EvernoteAuth auth = new EvernoteAuth(EvernoteService.PRODUCTION, _devToken);
             ClientFactory factory = new ClientFactory(auth);
