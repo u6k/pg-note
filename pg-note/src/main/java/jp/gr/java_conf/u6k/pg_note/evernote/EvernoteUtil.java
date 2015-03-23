@@ -44,7 +44,13 @@ public class EvernoteUtil {
 
     public void createLinknote(String url, String notebookGuid) {
         try {
-            Document doc = Jsoup.connect(url).timeout(10 * 1000).get();
+            Document doc;
+            try {
+                doc = Jsoup.connect(url).timeout(10 * 1000).get();
+            } catch (IOException e) {
+                L.warn("HTTP Error", e);
+                return;
+            }
             Elements titleE = doc.select("title");
             String title;
             if (titleE.size() > 0) {
@@ -72,7 +78,7 @@ public class EvernoteUtil {
             note.setAttributes(attrs);
 
             noteStore.createNote(note);
-        } catch (IOException | EDAMUserException | EDAMSystemException | TException | EDAMNotFoundException e) {
+        } catch (EDAMUserException | EDAMSystemException | TException | EDAMNotFoundException e) {
             throw new PgNoteException(e);
         }
     }
