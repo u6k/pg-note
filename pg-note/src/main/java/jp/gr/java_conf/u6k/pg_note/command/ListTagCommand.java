@@ -10,19 +10,19 @@ import java.util.Map;
 
 import jp.gr.java_conf.u6k.pg_note.PgNoteConfiguration;
 import jp.gr.java_conf.u6k.pg_note.evernote.EvernoteUtil;
-import jp.gr.java_conf.u6k.pg_note.vo.NoteVO;
+import jp.gr.java_conf.u6k.pg_note.vo.TagVO;
 import net.arnx.jsonic.JSON;
 import net.sourceforge.argparse4j.inf.Namespace;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ListNoteCommand extends ConfiguredCommand<PgNoteConfiguration> {
+public class ListTagCommand extends ConfiguredCommand<PgNoteConfiguration> {
 
-    private static final Logger L = LoggerFactory.getLogger(ListNoteCommand.class);
+    private static final Logger L = LoggerFactory.getLogger(ListTagCommand.class);
 
-    public ListNoteCommand() {
-        super("list-note", "List notes.");
+    public ListTagCommand() {
+        super("list-tag", "List tags.");
     }
 
     @Override
@@ -30,10 +30,10 @@ public class ListNoteCommand extends ConfiguredCommand<PgNoteConfiguration> {
         String devToken = config.getDevToken();
         L.debug("devToken: " + devToken);
 
-        List<NoteVO> noteVoList = new EvernoteUtil(devToken).listNote();
+        List<TagVO> tagVoList = new EvernoteUtil(devToken).listTag();
 
         Map<String, Object> result = new HashMap<String, Object>();
-        result.put("notes", noteVoList);
+        result.put("tags", tagVoList);
 
         String resultText = JSON.encode(result, true);
         System.out.println(resultText);

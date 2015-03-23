@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>jp.gr.java_conf.u6k.pg_note</groupId>
     <artifactId>pg_note</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
     <name>pg_note</name>
     <properties>
         <dropwizard.version>0.8.0</dropwizard.version>

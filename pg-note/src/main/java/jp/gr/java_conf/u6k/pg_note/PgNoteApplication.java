@@ -7,6 +7,8 @@ import io.dropwizard.setup.Environment;
 import jp.gr.java_conf.u6k.pg_note.command.CreateLinknoteCommand;
 import jp.gr.java_conf.u6k.pg_note.command.ListNoteCommand;
 import jp.gr.java_conf.u6k.pg_note.command.ListNotebookCommand;
+import jp.gr.java_conf.u6k.pg_note.command.ListTagCommand;
+import jp.gr.java_conf.u6k.pg_note.command.UrlImportCommand;
 
 public class PgNoteApplication extends Application<PgNoteConfiguration> {
 
@@ -19,6 +21,8 @@ public class PgNoteApplication extends Application<PgNoteConfiguration> {
         bootstrap.addCommand(new ListNotebookCommand());
         bootstrap.addCommand(new ListNoteCommand());
         bootstrap.addCommand(new CreateLinknoteCommand());
+        bootstrap.addCommand(new UrlImportCommand());
+        bootstrap.addCommand(new ListTagCommand());
     }
 
     @Override
