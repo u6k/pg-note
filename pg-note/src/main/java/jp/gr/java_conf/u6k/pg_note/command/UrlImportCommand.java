@@ -32,8 +32,10 @@ public class UrlImportCommand extends ConfiguredCommand<PgNoteConfiguration> {
 
         String jsonFilePath = System.getProperty("jsonFilePath");
         L.info("jsonFilePath: " + jsonFilePath);
-        String notebookGuid = System.getProperty("notebookGuid");
-        L.info("notebookGuid: " + notebookGuid);
+        String notebookGuid = System.getProperty("notebook");
+        L.info("notebook: " + notebookGuid);
+        String tagGuid = System.getProperty("tag");
+        L.info("tag: " + tagGuid);
 
         List<Map<String, String>> pixivLinkJson = JSON.decode(new FileInputStream(jsonFilePath));
         while (true) {
@@ -45,7 +47,7 @@ public class UrlImportCommand extends ConfiguredCommand<PgNoteConfiguration> {
                         String url = pixivLink.get("url");
                         L.debug("create linknote: url: " + url);
 
-                        evernoteUtil.createLinknote(url, notebookGuid);
+                        evernoteUtil.createLinknote(url, notebookGuid, tagGuid);
 
                         pixivLink.put("status", "ok");
                         JSON.encode(pixivLinkJson, new FileOutputStream(jsonFilePath));

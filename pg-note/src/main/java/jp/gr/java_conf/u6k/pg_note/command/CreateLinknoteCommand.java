@@ -29,7 +29,10 @@ public class CreateLinknoteCommand extends ConfiguredCommand<PgNoteConfiguration
         String notebookGuid = System.getProperty("notebook");
         L.debug("notebook: " + notebookGuid);
 
-        new EvernoteUtil(devToken).createLinknote(url, notebookGuid);
+        String tagGuid = System.getProperty("tag");
+        L.debug("tag: " + tagGuid);
+
+        new EvernoteUtil(devToken).createLinknote(url, notebookGuid, tagGuid);
     }
 
 }

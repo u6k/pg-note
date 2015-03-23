@@ -3,6 +3,7 @@ package jp.gr.java_conf.u6k.pg_note.evernote;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import jp.gr.java_conf.u6k.pg_note.PgNoteException;
@@ -44,8 +45,12 @@ public class EvernoteUtil {
         _devToken = devToken;
     }
 
-    public void createLinknote(String url, String notebookGuid) {
+    public void createLinknote(String url, String notebookGuid, String tagGuid) {
         try {
+            if (url == null) {
+                throw new NullPointerException("url");
+            }
+
             Document doc;
             try {
                 doc = Jsoup.connect(url).timeout(10 * 1000).get();
@@ -73,7 +78,12 @@ public class EvernoteUtil {
             Note note = new Note();
             note.setTitle(title);
             note.setContent(noteBody);
-            note.setNotebookGuid(notebookGuid);
+            if (notebookGuid != null) {
+                note.setNotebookGuid(notebookGuid);
+            }
+            if (tagGuid != null) {
+                note.setTagGuids(Arrays.asList(tagGuid));
+            }
 
             NoteAttributes attrs = new NoteAttributes();
             attrs.setSourceURL(url);
