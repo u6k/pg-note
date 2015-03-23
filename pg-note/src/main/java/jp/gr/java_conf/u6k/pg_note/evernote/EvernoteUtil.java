@@ -8,6 +8,7 @@ import java.util.List;
 import jp.gr.java_conf.u6k.pg_note.PgNoteException;
 import jp.gr.java_conf.u6k.pg_note.vo.NoteVO;
 import jp.gr.java_conf.u6k.pg_note.vo.NotebookVO;
+import jp.gr.java_conf.u6k.pg_note.vo.TagVO;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -30,6 +31,7 @@ import com.evernote.edam.type.Note;
 import com.evernote.edam.type.NoteAttributes;
 import com.evernote.edam.type.NoteSortOrder;
 import com.evernote.edam.type.Notebook;
+import com.evernote.edam.type.Tag;
 import com.evernote.thrift.TException;
 
 public class EvernoteUtil {
@@ -125,6 +127,25 @@ public class EvernoteUtil {
 
             return noteVoList;
         } catch (EDAMUserException | EDAMSystemException | TException | EDAMNotFoundException e) {
+            throw new PgNoteException(e);
+        }
+    }
+
+    public List<TagVO> listTag() {
+        try {
+            EvernoteAuth auth = new EvernoteAuth(EvernoteService.PRODUCTION, _devToken);
+            ClientFactory factory = new ClientFactory(auth);
+            NoteStoreClient noteStore = factory.createNoteStoreClient();
+
+            List<TagVO> tagVoList = new ArrayList<TagVO>();
+
+            List<Tag> tagList = noteStore.listTags();
+            for (Tag tag : tagList) {
+                tagVoList.add(new TagVO(tag));
+            }
+
+            return tagVoList;
+        } catch (EDAMUserException | EDAMSystemException | TException e) {
             throw new PgNoteException(e);
         }
     }
