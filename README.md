@@ -37,3 +37,7 @@ Evernoteをコマンドラインで操作するツールです。
 
 * url
   * リンク元のURL。このURLを元にリンクノートを作成します。
+
+## 課題管理
+
+https://myredmine-u6kapps.rhcloud.com/projects/pg-note
